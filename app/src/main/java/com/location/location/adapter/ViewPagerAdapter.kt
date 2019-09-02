@@ -25,7 +25,7 @@ internal class ViewPagerAdapter(private val ctx: Context) : PagerAdapter() {
 
         val inflater = LayoutInflater.from(ctx)
         val layout = inflater.inflate(
-            R.layout.viewpager_first_layout,
+            R.layout.viewpager_image_layout,
             view, false
         ) as ViewGroup
 

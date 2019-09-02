@@ -53,7 +53,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     private var latitude: Double? = null
     private var longitude: Double? = null
     private var mLocation: Location? = null
-    private val TAG = "MapsActivity"
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var binding: ActivityMapsBinding
 
@@ -103,13 +102,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         sheetBehavior!!.isFitToContents=true
         sheetBehavior!!.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-//                Log.d("Hello",slideOffset.toString())
                 if (slideOffset > 0) {
                     binding.imageViewUser.setImageResource(R.mipmap.ic_export)
                     binding.imageViewNotification.setImageResource(R.mipmap.ic_close)
 
                 } else {
-                //    sheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
                     binding.imageViewUser.setImageResource(R.mipmap.ic_user)
                     binding.imageViewNotification.setImageResource(R.mipmap.ic_notification)
                 }
@@ -120,10 +117,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
             }
 
         })
-
-
-        // changeMyLocation()
-
     }
 
     /**
@@ -151,8 +144,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
             )
         )
 
-        if (!success) {
-            Log.e(TAG, "Style parsing failed.")
+        if (latitude != null && longitude != null) {
+            val location = LatLng(latitude!!, longitude!!)
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14.0f))
         }
     }
 
@@ -207,22 +201,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onLocationChanged(p0: Location?) {
         latitude = p0?.latitude
         longitude = p0?.longitude
+       if(mMap!=null){
+           onMapReady(mMap)
+       }
     }
-
-    // Change My Location Button Position
-//    private fun changeMyLocation() {
-//
-//        val locationButton =
-//            (mapFragment.view!!.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(
-//                Integer.parseInt("2")
-//            )
-//        val layoutParams = locationButton.layoutParams as (RelativeLayout.LayoutParams)
-//        // position on top right
-//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
-//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
-//        layoutParams.setMargins(0, 180, 60, 0)
-//
-//    }
 
     override fun onStart() {
         super.onStart()

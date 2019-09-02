@@ -9,4 +9,5 @@
     <string name="location_msg">Your Locations Settings is set to \'Off\'. \nPlease Enable Location to use this app</string>
     <string name="pdf">Flyer PDF</string>
     <string name="audio_mp3">Audio MP3</string>
+    <string name="extreme_alert">Extreme Alert</string>
 </resources>
